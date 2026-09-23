@@ -235,4 +235,4 @@ if __name__ == '__main__':
     os.chdir(ROOT)
     print(f'Solar Service Armenia server: http://localhost:{PORT}')
     print(f'Admin Panel: http://localhost:{PORT}/admin')
-    ThreadingHTTPServer(('127.0.0.1', PORT), Handler).serve_forever()
+    ThreadingHTTPServer(('0.0.0.0', PORT), Handler).serve_forever()
