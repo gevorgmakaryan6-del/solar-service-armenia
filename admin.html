@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="hy">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Solar Service Armenia — Կառավարման Վահանակ</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { background: #0a1926; color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 20px; margin: 0; }
+    .admin-container { max-width: 1200px; margin: 0 auto; }
+    h1 { color: #4ade80; margin-bottom: 20px; font-size: 24px; border-bottom: 1px solid #1a3f5c; padding-bottom: 10px; }
+    h2 { color: #94a3b8; font-size: 18px; margin-top: 30px; margin-bottom: 15px; }
+    table { width: 100%; border-collapse: collapse; background: #0e273c; border-radius: 8px; overflow: hidden; margin-bottom: 30px; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #1a3f5c; font-size: 13px; }
+    th { background: #13324d; color: #38bdf8; font-weight: 600; }
+    tr:hover { background: #13324d; }
+    select, input, textarea { background: #0a1926; border: 1px solid #1a3f5c; color: #fff; padding: 6px; border-radius: 4px; font-size: 12px; }
+    .btn-save { background: #10b981; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold; }
+    .btn-convert { background: #0284c7; color: #fff; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: bold; }
+    .badge { padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+    .badge-NEW { background: #f59e0b; color: #000; }
+    .badge-IN_PROGRESS { background: #3b82f6; color: #fff; }
+    .badge-DONE { background: #10b981; color: #fff; }
+  </style>
+</head>
+<body>
+<div class="admin-container">
+  <h1>☀️ Solar Service Armenia — Կառավարման Վահանակ</h1>
+
+  <h2>1. Ծառայության Հայտեր (Service Requests)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Հաճախորդ / Հեռախոս</th>
+        <th>Հասցե</th>
+        <th>Խնդիր / Փաթեթ</th>
+        <th>Նկարագրություն</th>
+        <th>Ամսաթիվ</th>
+        <th>Տեխնիկական Նշումներ</th>
+        <th>Կարգավիճակ</th>
+      </tr>
+    </thead>
+    <tbody id="requestsTable">
+      <tr><td colspan="8">Բեռնվում է...</td></tr>
+    </tbody>
+  </table>
+
+  <h2>2. Կայանի Ստուգման Հայտեր (Plant Checks)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Հզորություն</th>
+        <th>Ինվերտոր</th>
+        <th>Պանելներ</th>
+        <th>Տարի</th>
+        <th>Խնդիր</th>
+        <th>Հեռախոս</th>
+        <th>Ամսաթիվ</th>
+        <th>Գործողություն</th>
+      </tr>
+    </thead>
+    <tbody id="checksTable">
+      <tr><td colspan="9">Բեռնվում է...</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+async function loadData() {
+  // Service Requests
+  try {
+    const res = await fetch('/api/admin/requests');
+    const data = await res.json();
+    const tbody = document.getElementById('requestsTable');
+    if (data.ok && data.requests.length > 0) {
+      tbody.innerHTML = data.requests.map(r => `
+        <tr>
+          <td><b>#${r.id}</b></td>
+          <td>${r.customer_name || 'Անանուն'}<br><a href="tel:${r.phone}" style="color:#38bdf8;">${r.phone || '-'}</a></td>
+          <td><input type="text" id="addr-${r.id}" value="${r.address || ''}" placeholder="Հասցե" style="width:110px;"></td>
+          <td><b>${r.problem_type || '-'}</b></td>
+          <td style="max-width:220px; font-size:12px;">${r.description || '-'}</td>
+          <td>${r.created_at ? r.created_at.slice(0,10) : '-'}</td>
+          <td><textarea id="notes-${r.id}" placeholder="Նշումներ" style="width:130px; height:35px;">${r.notes || ''}</textarea></td>
+          <td>
+            <select id="status-${r.id}" style="margin-bottom:4px; display:block;">
+              <option value="NEW" ${r.status === 'NEW' ? 'selected' : ''}>NEW</option>
+              <option value="IN_PROGRESS" ${r.status === 'IN_PROGRESS' ? 'selected' : ''}>IN PROGRESS</option>
+              <option value="DONE" ${r.status === 'DONE' ? 'selected' : ''}>DONE</option>
+            </select>
+            <button class="btn-save" onclick="updateStatus(${r.id})">Պահպանել</button>
+          </td>
+        </tr>
+      `).join('');
+    } else {
+      tbody.innerHTML = '<tr><td colspan="8">Հայտեր դեռ չկան:</td></tr>';
+    }
+  } catch (e) {
+    console.error(e);
+  }
+
+  // Plant Checks
+  try {
+    const res = await fetch('/api/admin/plant-checks');
+    const data = await res.json();
+    const tbody = document.getElementById('checksTable');
+    if (data.ok && data.checks.length > 0) {
+      tbody.innerHTML = data.checks.map(c => `
+        <tr>
+          <td><b>#${c.id}</b></td>
+          <td>${c.power_kw} կՎտ</td>
+          <td>${c.inverter}</td>
+          <td>${c.panel_count || '-'}</td>
+          <td>${c.year || '-'}</td>
+          <td style="color:#f59e0b;">${c.problem || '-'}</td>
+          <td><a href="tel:${c.phone}" style="color:#38bdf8;">${c.phone}</a></td>
+          <td>${c.created_at ? c.created_at.slice(0,10) : '-'}</td>
+          <td>
+            <button class="btn-convert" onclick="convertToRequest(${c.id})">➔ Դարձնել Service</button>
+          </td>
+        </tr>
+      `).join('');
+    } else {
+      tbody.innerHTML = '<tr><td colspan="9">Ստուգման հարցումներ դեռ չկան:</td></tr>';
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+async function updateStatus(id) {
+  const status = document.getElementById(`status-${id}`).value;
+  const notes = document.getElementById(`notes-${id}`).value;
+  const address = document.getElementById(`addr-${id}`).value;
+  try {
+    const res = await fetch('/api/admin/request-status', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, status, notes, address })
+    });
+    const d = await res.json();
+    if (d.ok) {
+      alert('Կարգավիճակը և նշումները պահպանվեցին');
+      loadData();
+    } else {
+      alert('Սխալ՝ ' + d.error);
+    }
+  } catch (e) {
+    alert('Սխալ՝ ' + e.message);
+  }
+}
+
+async function convertToRequest(checkId) {
+  if (!confirm(`Հայտ #${checkId}-ը տեղափոխե՞լ Service Requests աղյուսակ`)) return;
+  try {
+    const res = await fetch('/api/admin/convert-check', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ check_id: checkId })
+    });
+    const d = await res.json();
+    if (d.ok) {
+      alert(`Ստեղծվեց նոր Service Request #${d.new_request_id}`);
+      loadData();
+    } else {
+      alert('Սխալ՝ ' + d.error);
+    }
+  } catch (e) {
+    alert('Սխալ՝ ' + e.message);
+  }
+}
+
+loadData();
+</script>
+</body>
+</html>

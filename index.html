@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="hy">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Solar Service Armenia — արևային կայանների monitoring, diagnostics, maintenance, առանձնատների լարման կարգավորում և ստաբիլիզատորների պրոֆեսիոնալ տեղադրում։">
+<meta name="theme-color" content="#0a3435"><title>Solar Service Armenia — Solar O&M, Monitoring & Voltage Stabilization</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Armenian:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* Modals & Lookup Styles */
+.modal-overlay {
+  display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(10, 25, 40, 0.85); backdrop-filter: blur(5px); z-index: 1000;
+  justify-content: center; align-items: center; padding: 20px; box-sizing: border-box;
+}
+.modal-content {
+  background: #0d2232; border: 1px solid #1a3f5c; border-radius: 12px;
+  max-width: 650px; width: 100%; color: #fff; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  position: relative; max-height: 90vh; overflow-y: auto;
+}
+.modal-close {
+  position: absolute; top: 15px; right: 15px; background: none; border: none;
+  color: #8fa0b5; font-size: 24px; cursor: pointer; line-height: 1;
+}
+.demo-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin: 20px 0;
+}
+.demo-card {
+  background: #132e44; padding: 12px; border-radius: 8px; border: 1px solid #1f4566; text-align: center;
+}
+.demo-card small { display: block; color: #8fa0b5; font-size: 11px; margin-bottom: 4px; }
+.demo-card strong { font-size: 16px; color: #4ade80; }
+
+/* Error Lookup Card */
+.error-lookup-box {
+  background: #0d2232; border: 1px solid #1a3f5c; border-radius: 12px; padding: 24px; margin-top: 25px;
+}
+.lookup-form-grid {
+  display: grid; grid-template-columns: 1fr 1fr auto; gap: 12px; align-items: end;
+}
+@media (max-width: 768px) {
+  .lookup-form-grid { grid-template-columns: 1fr; }
+}
+.error-result-panel {
+  display: none; margin-top: 20px; padding: 18px; border-radius: 8px; background: #132e44; border-left: 4px solid #38bdf8;
+}
+
+/* Knowledge Card Interactive Style */
+.knowledge-grid article {
+  cursor: pointer; transition: transform 0.2s, border-color 0.2s;
+}
+.knowledge-grid article:hover {
+  transform: translateY(-4px); border-color: #38bdf8;
+}
+
+/* Portal Tabs & Card */
+.portal-badge-new { background: #f59e0b; color: #000; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; }
+.portal-badge-in-progress { background: #3b82f6; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; }
+.portal-badge-done { background: #10b981; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; }
+</style>
+</head>
+<body>
+<div class="topline"><div class="container top-inner"><span>☀️ Solar Service Armenia</span><span>Արևային կայանների և առանձնատների էլեկտրական ինժեներիա</span><div><a href="tel:+37444222720">📞 +374 44 222720</a><a href="mailto:sservicearmenia@gmail.com">✉️ sservicearmenia@gmail.com</a></div></div></div>
+<header class="header" id="top"><div class="container nav">
+<a class="brand" href="#top"><img src="assets/logo.png" alt="Solar Service Armenia"></a>
+<nav><a href="#services">Ծառայություններ</a><a href="#house-voltage">Լարման Կարգավորում</a><a href="#monitoring">Monitoring</a><a href="#ai">Solar AI</a><a href="#lookup">Error Lookup</a><a href="#knowledge">Գիտելիքի բազա</a><a href="#contact">Կապ</a></nav>
+<button class="nav-login" id="btnOpenPortal" style="background:none; border:none; color:inherit; font:inherit; cursor:pointer;">Client Login <span>↗</span></button><button class="menu" id="menu" aria-label="Մենյու">☰</button></div>
+<div class="mobile-menu" id="mobileMenu"><a href="#services">Ծառայություններ</a><a href="#house-voltage">Լարման Կարգավորում</a><a href="#monitoring">Monitoring</a><a href="#ai">Solar AI</a><a href="#lookup">Error Lookup</a><a href="#knowledge">Գիտելիքի բազա</a><a href="#contact">Կապ</a><a href="javascript:void(0)" id="mobileBtnOpenPortal">Client Login</a></div></header>
+
+<main>
+<section class="hero"><div class="grid-bg"></div><div class="container hero-grid"><div class="hero-copy">
+<div class="eyebrow"><i></i> VOLTAGE ENGINEERING • SOLAR O&M • POWER PROTECTION</div>
+<h1>Առանձնատան կայուն հոսանք և արևային կայանի անխափան աշխատանք։<span>Պաշտպանեք ձեր թանկարժեք տեխնիկան և ներդրումը։</span></h1>
+<p>Լուծում ենք ցանցի ցածր (160V) և բարձր (270V) լարման խնդիրները առանձնատներում։ Կանխում ենք գազի կաթսաների, պոմպերի այրվելը և արևային ինվերտորների անջատումները։</p>
+<div class="hero-actions"><a class="btn primary" href="#house-voltage">Կարգավորել լարումը <b>→</b></a><button class="btn secondary" id="btnOpenDemo" style="cursor: pointer;">Դիտել Monitoring Demo</button></div>
+<div class="proof"><span>✓ 1 & 3 Phase Stabilizers</span><span>✓ Inverter Grid Solutions</span><span>✓ Տեղում ինժեներական չափագրում</span></div>
+</div>
+<div class="hero-visual"><div class="dash-head"><span>LIVE SOLAR & GRID MONITOR</span><strong>● ONLINE</strong></div><div class="big-power"><div><small>Current Power</small><strong id="liveCurrentPower">8.42 <em>kW</em></strong><label>▲ 6.8% vs yesterday</label></div><div class="sun-orb">☀</div></div>
+<div class="chartbox"><div class="chart-title"><span>Today's production</span><b id="liveEnergyToday">42.8 kWh</b></div><svg viewBox="0 0 620 180" preserveAspectRatio="none"><defs><linearGradient id="a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-opacity=".30"/><stop offset="1" stop-opacity="0"/></linearGradient></defs><path class="area" d="M0 165 C40 160 65 150 100 145 S150 120 180 105 S220 82 255 90 S300 55 340 62 S390 38 430 45 S470 22 510 31 S560 18 620 8 L620 180 L0 180 Z"/><path class="curve" d="M0 165 C40 160 65 150 100 145 S150 120 180 105 S220 82 255 90 S300 55 340 62 S390 38 430 45 S470 22 510 31 S560 18 620 8"/></svg><div class="axis"><span>08:00</span><span>10:00</span><span>12:00</span><span>14:00</span><span>16:00</span></div></div>
+<div class="mini-metrics"><div><small>PV1</small><b id="livePV1">4.18 kW</b><span>Normal</span></div><div><small>PV2</small><b id="livePV2">4.24 kW</b><span>Normal</span></div><div><small>AC Voltage</small><b id="liveAC">231 V</b><span>Normal</span></div><div><small>Temp.</small><b id="liveTemp">54°C</b><span>Normal</span></div></div><div class="ai-ok">🤖 <b>AI STATUS</b><span>✓ No critical problems detected</span></div></div></div></section>
+
+<!-- Demo Modal -->
+<div class="modal-overlay" id="demoModal">
+  <div class="modal-content">
+    <button class="modal-close" id="btnCloseDemo">&times;</button>
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #1f4566; padding-bottom:10px;">
+      <h3 style="margin:0; color:#4ade80;">📡 Solar Service Live Telemetry Demo</h3>
+      <span style="font-size:12px; background:#1f4566; padding:4px 8px; border-radius:4px;">Inverter: Solis 10kW</span>
+    </div>
+    <div class="demo-grid">
+      <div class="demo-card"><small>MPPT 1 Voltage</small><strong>382.4 V</strong></div>
+      <div class="demo-card"><small>MPPT 1 Current</small><strong>10.9 A</strong></div>
+      <div class="demo-card"><small>MPPT 2 Voltage</small><strong>380.1 V</strong></div>
+      <div class="demo-card"><small>MPPT 2 Current</small><strong>11.1 A</strong></div>
+      <div class="demo-card"><small>Grid Voltage (AC)</small><strong>233.8 V</strong></div>
+      <div class="demo-card"><small>Inverter Temp</small><strong>51.2 °C</strong></div>
+    </div>
+    <div style="background:#132e44; padding:15px; border-radius:8px; border-left:4px solid #4ade80; font-size:13px; line-height:1.5;">
+      <b>🤖 AI Ախտորոշում:</b> MPPT1 և MPPT2 արտադրողականության շեղումը &lt; 2% է (Նորմալ)։ Ցանցի լարումը թույլատրելի միջակայքում է (233.8V): Վթարային անջատման ռիսկ չկա։
+    </div>
+  </div>
+</div>
+
+<!-- Package Order Modal -->
+<div class="modal-overlay" id="pkgModal">
+  <div class="modal-content" style="max-width: 480px;">
+    <button class="modal-close" id="btnClosePkg">&times;</button>
+    <h3 style="margin:0 0 10px 0; color:#4ade80;">📋 Սպասարկման Փաթեթի Պատվեր</h3>
+    <p style="font-size:13px; color:#8fa0b5; margin-bottom:15px;">Ընտրված փաթեթ՝ <b id="selectedPkgTitle" style="color:#fff;"></b></p>
+    <form id="pkgForm">
+      <input type="hidden" name="pkg_name" id="hiddenPkgName">
+      <div style="margin-bottom:12px;">
+        <label style="font-size:12px; color:#8fa0b5; display:block; margin-bottom:4px;">Կայանի հզորությունը (կՎտ)</label>
+        <input name="power" id="pkgPower" type="number" required placeholder="օր. 10" style="background:#132e44; color:#fff; border:1px solid #234d6f; padding:8px; width:100%; box-sizing:border-box; border-radius:6px;">
+      </div>
+      <div style="margin-bottom:12px;">
+        <label style="font-size:12px; color:#8fa0b5; display:block; margin-bottom:4px;">Հեռախոսահամար</label>
+        <input name="phone" id="pkgPhone" type="tel" required placeholder="+374 ..." style="background:#132e44; color:#fff; border:1px solid #234d6f; padding:8px; width:100%; box-sizing:border-box; border-radius:6px;">
+      </div>
+      <div style="margin-bottom:15px;">
+        <label style="font-size:12px; color:#8fa0b5; display:block; margin-bottom:4px;">Գտնվելու վայրը / Հասցե</label>
+        <input name="address" id="pkgAddress" type="text" placeholder="օր. Երևան կամ մարզ" style="background:#132e44; color:#fff; border:1px solid #234d6f; padding:8px; width:100%; box-sizing:border-box; border-radius:6px;">
+      </div>
+      <button type="submit" class="btn primary" style="width:100%; padding:10px; cursor:pointer; font-weight:bold;">Ուղարկել հարցումը →</button>
+      <div id="pkgResult" style="margin-top:10px; font-size:13px;"></div>
+    </form>
+  </div>
+</div>
+
+<!-- Knowledge Article Modal -->
+<div class="modal-overlay" id="kbModal">
+  <div class="modal-content" style="max-width: 680px;">
+    <button class="modal-close" id="btnCloseKb">&times;</button>
+    <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+      <span id="kbCategory" style="font-size:11px; background:#1f4566; color:#38bdf8; padding:3px 8px; border-radius:4px; font-weight:bold;"></span>
+    </div>
+    <h3 id="kbTitle" style="color:#4ade80; margin:0 0 15px 0; font-size:18px;"></h3>
+    <div id="kbBody" style="font-size:13.5px; line-height:1.7; color:#cbd5e1; margin-bottom:20px;"></div>
+    <div style="background:#0a1926; padding:12px 16px; border-radius:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      <span style="font-size:12px; color:#94a3b8;">Ունե՞ք նմանատիպ տեխնիկական հարց ձեր կայանում:</span>
+      <a href="#check" id="btnKbCheckAction" class="btn primary" style="padding:6px 14px; font-size:12px; text-decoration:none;">Դիմել Ինժեներական Ստուգման →</a>
+    </div>
+  </div>
+</div>
+
+<!-- CLIENT PORTAL MODAL -->
+<div class="modal-overlay" id="portalModal">
+  <div class="modal-content" style="max-width: 620px;">
+    <button class="modal-close" id="btnClosePortal">&times;</button>
+    <div style="display:flex; align-items:center; gap:10px; border-bottom:1px solid #1a3f5c; padding-bottom:12px; margin-bottom:16px;">
+      <span style="font-size:22px;">👤</span>
+      <div>
+        <h3 style="margin:0; color:#4ade80; font-size:18px;">Client Portal • Անձնական Կաբինետ</h3>
+        <small style="color:#8fa0b5;">Ստուգեք ձեր կայանի կարգավիճակը կամ դիտեք ցուցադրական տարբերակը</small>
+      </div>
+    </div>
+
+    <!-- Login Area -->
+    <div id="portalLoginArea">
+      <p style="font-size:13px; color:#cbd5e1; margin-bottom:12px;">Մուտքագրեք ձեր հեռախոսահամարը՝ սպասարկման պատմությունը և ընթացիկ հայտերը տեսնելու համար։</p>
+      <form id="portalAuthForm" style="display:flex; gap:10px; margin-bottom:15px;">
+        <input type="tel" id="portalPhoneInput" required placeholder="+374 44 222720" style="flex:1; background:#132e44; color:#fff; border:1px solid #234d6f; padding:10px; border-radius:6px;">
+        <button type="submit" class="btn primary" style="padding:10px 18px; cursor:pointer; font-weight:bold;">Մուտք ➔</button>
+      </form>
+      <div style="text-align:center; margin:15px 0 10px 0;">
+        <span style="font-size:12px; color:#8fa0b5;">— ԿԱՄ —</span>
+      </div>
+      <button type="button" id="btnOpenDemoDashboard" style="width:100%; background:#10283c; color:#38bdf8; border:1px dashed #38bdf8; padding:10px; border-radius:6px; cursor:pointer; font-weight:600; font-size:13px;">
+        🔍 Դիտել Demo Կաբինետը (Օրինակային 10 կՎտ կայան)
+      </button>
+      <div id="portalAuthMessage" style="margin-top:10px; font-size:12.5px;"></div>
+    </div>
+
+    <!-- Real Dashboard Area (hidden initially) -->
+    <div id="portalUserDashboard" style="display:none;">
+      <div style="display:flex; justify-content:space-between; align-items:center; background:#132e44; padding:12px 15px; border-radius:8px; margin-bottom:15px;">
+        <div>
+          <b style="color:#38bdf8; font-size:15px;" id="dashCustomerTitle">Իմ Կայանները</b>
+          <div style="font-size:11px; color:#8fa0b5;" id="dashCustomerPhone"></div>
+        </div>
+        <button id="btnPortalLogout" style="background:#0a1926; border:1px solid #1a3f5c; color:#8fa0b5; padding:4px 10px; border-radius:4px; font-size:11px; cursor:pointer;">Ելք</button>
+      </div>
+      <div id="dashRequestsContainer"></div>
+    </div>
+
+    <!-- Demo Dashboard Area (hidden initially) -->
+    <div id="portalDemoDashboard" style="display:none;">
+      <div style="display:flex; justify-content:space-between; align-items:center; background:#132e44; padding:10px 15px; border-radius:8px; margin-bottom:15px;">
+        <div>
+          <b style="color:#4ade80;">🏡 Կայան: «Առանձնատուն — 10 կՎտ»</b>
+          <span style="font-size:11px; background:#166534; color:#fff; padding:2px 6px; border-radius:4px; margin-left:6px;">● ACTIVE O&M</span>
+        </div>
+        <button id="btnBackToLogin" style="background:#0a1926; border:1px solid #1a3f5c; color:#8fa0b5; padding:4px 10px; border-radius:4px; font-size:11px; cursor:pointer;">Վերադառնալ</button>
+      </div>
+
+      <div class="demo-grid" style="margin-bottom:15px;">
+        <div class="demo-card"><small>Ընթացիկ Հզորություն</small><strong>8.42 կՎտ</strong></div>
+        <div class="demo-card"><small>Այսօրվա արտադրանք</small><strong>42.8 կՎտժ</strong></div>
+        <div class="demo-card"><small>AI Առողջության ինդեքս</small><strong style="color:#38bdf8;">98% (Գերազանց)</strong></div>
+      </div>
+
+      <h4 style="color:#38bdf8; margin:15px 0 8px 0; font-size:14px;">Սպասարկման պատմություն (Service Log)</h4>
+      <div style="background:#0a1926; border:1px solid #1a3f5c; border-radius:6px; font-size:12px;">
+        <div style="padding:8px 12px; border-bottom:1px solid #1a3f5c; display:flex; justify-content:space-between;">
+          <span><b>2026-08-14</b> — Ինվերտորի պարամետրավորում և ստաբիլիզատորի թեստավորում</span>
+          <span class="portal-badge-done">DONE</span>
+        </div>
+        <div style="padding:8px 12px; display:flex; justify-content:space-between;">
+          <span><b>2026-06-02</b> — Տարեկան պլանային սպասարկում (DC/AC չափումներ + լվացում)</span>
+          <span class="portal-badge-done">DONE</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="section services" id="services"><div class="container"><div class="section-head"><div><div class="eyebrow">OUR ENGINEERING SERVICES</div><h2>Արևային կայանի և էլեկտրական ցանցի ամբողջական սպասարկում</h2></div><p>Մեկ թիմ՝ monitoring-ից մինչև լարման կարգավորում, ստաբիլիզատորներ և վերանորոգում։</p></div>
+<div class="service-grid"><article><div class="icon">🛡️</div><h3>Լարման Կարգավորում</h3><p>Տան ցածր (160V) կամ բարձր (270V) լարման վերացում հզոր սերվո/տիրիստորային ստաբիլիզատորներով։</p><a href="#house-voltage">Իմանալ ավելին →</a></article><article><div class="icon">📡</div><h3>Monitoring</h3><p>Կայանի արտադրության, inverter-ի, լարումների, ջերմաստիճանի և alarm-ների հեռավար վերահսկում։</p><a href="#monitoring">Իմանալ ավելին →</a></article><article><div class="icon">🔎</div><h3>Diagnostics</h3><p>Արտադրության անկման, string imbalance-ի, grid և inverter խնդիրների տեխնիկական վերլուծություն։</p><a href="#cases">Դիտել մոտեցումը →</a></article><article><div class="icon">🔧</div><h3>Maintenance</h3><p>Պլանային և արտակարգ սպասարկում՝ DC/AC հատված, պաշտպանություններ, inverter, միացումներ և համակարգի վիճակ։</p><a href="#packages">Փաթեթներ →</a></article><article><div class="icon">⚡</div><h3>Optimization</h3><p>Կարգավորումներ, արտադրության վերլուծություն և կորուստների նվազեցում՝ կայանի արդյունավետությունը բարձրացնելու համար։</p><a href="#ai">AI + Optimization →</a></article><article><div class="icon">🔌</div><h3>Inverter Service</h3><p>Solis, Growatt, Huawei, FoxESS, Deye, SolaX և այլ համակարգերի տեխնիկական աջակցություն և կարգավորում։</p><a href="#lookup">Ստուգել Inverter Alarm →</a></article><article><div class="icon">🔋</div><h3>Hybrid & Battery</h3><p>Hybrid inverter-ներ, մարտկոցներ, SOC կառավարում և էներգիայի պահեստավորման համակարգերի տեխնիկական նախագծում։</p><a href="#contact">Խորհրդակցել →</a></article><article><div class="icon">📜</div><h3>Ինժեներական Աուդիտ</h3><p>Ամբողջ տան էլեկտրական վահանակի, հողակցման կոնտուրի և բեռնվածության ստուգում ջերմատեսիչով։</p><a href="#check">Ստուգել կայանը / տունը →</a></article></div></div></section>
+
+<!-- DEDICATED HOUSE VOLTAGE REGULATION SECTION -->
+<section class="section" id="house-voltage" style="background:#081b2a; border-top:1px solid #1a3f5c; border-bottom:1px solid #1a3f5c;">
+  <div class="container split">
+    <div>
+      <div class="eyebrow">VOLTAGE STABILIZATION & PROTECTION</div>
+      <h2>Առանձնատների Լարման Կարգավորում և Ստաբիլիզացիա</h2>
+      <p>Ձեր տան լարումը տատանվո՞ւմ է (իջնում 160V կամ թռչում մինչև 270V)։ Լույսերը թարթո՞ւմ են, գազի կաթսան անջատվո՞ւմ է, իսկ արևային ինվերտորը՝ կանգնո՞ւմ։</p>
+      <p style="font-size:13.5px; color:#cbd5e1; line-height:1.6;">
+        Մենք տեղադրում ենք բարձր ճշգրտության պրոֆեսիոնալ <b>լարման ստաբիլիզատորներ</b> (1 ֆազ և 3 ֆազ), որոնք ամբողջ տան համար ապահովում են կայուն <b>220V / 380V</b>՝ պաշտպանելով կաթսաները, սառնարանները, պոմպերը և արևային համակարգը։
+      </p>
+      <div class="specs" style="margin-top:15px;">
+        <span>🏠 Ամբողջ տան պաշտպանություն</span>
+        <span>⚡ 1 Ֆազ (մինչև 15 կՎԱ)</span>
+        <span>⚡ 3 Ֆազ (մինչև 60 կՎԱ)</span>
+        <span>🛡️ Գերլարման և կարճ միացման արգելափակում</span>
+      </div>
+    </div>
+
+    <div>
+      <form id="houseVoltForm" style="background:#0e273c; padding:22px; border-radius:12px; border:1px solid #1a3f5c; box-shadow:0 10px 25px rgba(0,0,0,0.4);">
+        <h4 style="margin:0 0 12px 0; color:#4ade80; font-size:16px;">⚡ Լարման Կարգավորման Հայտ</h4>
+        <p style="font-size:12px; color:#8fa0b5; margin-bottom:15px;">Լրացրեք տվյալները՝ ստանալու անվճար ինժեներական խորհրդատվություն և ստաբիլիզատորի ճշգրիտ հաշվարկ։</p>
+        
+        <div style="margin-bottom:10px;">
+          <label style="font-size:12px; color:#8fa0b5; display:block; margin-bottom:4px;">Ֆազայնությունը</label>
+          <select id="hvPhase" style="width:100%; background:#132e44; color:#fff; border:1px solid #234d6f; padding:8px; border-radius:6px; font-size:13px;">
+            <option value="1 Ֆազ (220V)">1 Ֆազ (220V) — Սովորական առանձնատուն / բնակարան</option>
+            <option value="3 Ֆազ (380V)" selected>3 Ֆազ (380V) — Մեծ առանձնատուն / արևային կայանով</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom:10px;">
+          <label style="font-size:12px; color:#8fa0b5; display:block; margin-bottom:4px;">Ի՞նչ խնդիր է նկատվում ցանցում</label>
+          <select id="hvProblem" style="width:100%; background:#132e44; color:#fff; border:1px solid #234d6f; padding:8px; border-radius:6px; font-size:13px;">
+            <option value="Շատ ցածր լարում (160V-190V)">Շատ ցածր լարում (160V-190V) — տեխնիկան թույլ է աշխատում</option>
+            <option value="Բարձր լարում (250V-270V)">Բարձր լարում (250V-270V) — արևայինը կամ սարքերը անջատվում են</option>
+            <option value="Մշտական տատանումներ">Կտրուկ տատանումներ և թարթումներ</option>
+            <option value="Ամբողջական նոր տան պաշտպանություն">Կանխարգելիչ՝ ամբողջ նոր տան հուսալի պաշտպանություն</option>
+          </select>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px;">
+          <div>
+            <label style="font-size:12px; color:#8fa0b5; display:block; margin-bottom:4px;">Տան մոտավոր մակերեսը</label>
+            <input type="text" id="hvArea" placeholder="օր. 180 քմ" style="width:100%; box-sizing:border-box; background:#132e44; color:#fff; border:1px solid #234d6f; padding:8px; border-radius:6px; font-size:13px;">
+          </div>
+          <div>
+            <label style="font-size:12px; color:#8fa0b5; display:block; margin-bottom:4px;">Արևային կայան ունե՞ք</label>
+            <select id="hvHasSolar" style="width:100%; background:#132e44; color:#fff; border:1px solid #234d6f; padding:8px; border-radius:6px; font-size:13px;">
+              <option value="Այո, ունեմ արևային կայան">Այո, ունեմ</option>
+              <option value="Ոչ, արևային չունեմ">Ոչ, չունեմ</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-bottom:12px;">
+          <label style="font-size:12px; color:#8fa0b5; display:block; margin-bottom:4px;">Հեռախոսահամար</label>
+          <input type="tel" id="hvPhone" required placeholder="+374 ..." style="width:100%; box-sizing:border-box; background:#132e44; color:#fff; border:1px solid #234d6f; padding:8px; border-radius:6px; font-size:13px;">
+        </div>
+
+        <button type="submit" class="btn primary" style="width:100%; padding:10px; cursor:pointer; font-weight:bold;">Պատվիրել Լարման Չափագրում և Ստաբիլիզացիա →</button>
+        <div id="hvResult" style="margin-top:10px; font-size:12.5px;"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- INVERTER ERROR CODE LOOKUP SECTION -->
+<section class="section" id="lookup" style="background:#091d2c; border-top:1px solid #1a3f5c; border-bottom:1px solid #1a3f5c;">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">DIAGNOSTIC DATABASE</div>
+        <h2>Ինվերտորի Սխալների Որոնիչ (Error Code Lookup)</h2>
+      </div>
+      <p>Ինվերտորը անջատվե՞լ է կամ էկրանին կարմի՞ր alarm է վառվում։ Ընտրեք մոդելն ու սխալի կոդը՝ ակնթարթային ինժեներական ախտորոշման համար։</p>
+    </div>
+
+    <div class="error-lookup-box">
+      <div class="lookup-form-grid">
+        <div>
+          <label style="font-size:12px; color:#8fa0b5; display:block; margin-bottom:6px;">Ինվերտորի Բրենդը</label>
+          <select id="lookupBrand" style="width:100%; background:#132e44; color:#fff; border:1px solid #234d6f; padding:10px; border-radius:6px;">
+            <option value="Solis">Solis</option>
+            <option value="Growatt">Growatt</option>
+            <option value="Huawei">Huawei</option>
+            <option value="Deye">Deye</option>
+            <option value="Other">Այլ համակարգեր</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:12px; color:#8fa0b5; display:block; margin-bottom:6px;">Տարածված սխալի կոդ</label>
+          <select id="lookupCommonCodes" style="width:100%; background:#132e44; color:#fff; border:1px solid #234d6f; padding:10px; border-radius:6px;">
+          </select>
+        </div>
+        <div>
+          <button id="btnDiagnoseError" class="btn primary" style="width:100%; padding:10px 20px; cursor:pointer; font-weight:bold;">Ախտորոշել Սխալը 🔎</button>
+        </div>
+      </div>
+
+      <div id="errorResultPanel" class="error-result-panel">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid #1f4566; padding-bottom:8px;">
+          <h4 id="errResTitle" style="margin:0; color:#38bdf8; font-size:16px;"></h4>
+          <span id="errResSeverity" style="font-size:11px; padding:3px 8px; border-radius:4px; font-weight:bold;"></span>
+        </div>
+        <div style="font-size:13px; line-height:1.6; margin-bottom:15px;">
+          <div style="margin-bottom:8px;"><b>⚠️ Ինչ է նշանակում:</b> <span id="errResMeaning" style="color:#e2e8f0;"></span></div>
+          <div style="margin-bottom:8px;"><b>🔍 Հիմնական պատճառները:</b> <span id="errResCauses" style="color:#cbd5e1;"></span></div>
+          <div><b>🛠️ Ինժեներական լուծում:</b> <span id="errResFix" style="color:#4ade80;"></span></div>
+        </div>
+        <div style="background:#0a1926; padding:12px; border-radius:6px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;">
+          <span style="font-size:12px; color:#94a3b8;">Պահանջվո՞ւմ է մասնագետի մոտեցում կամ ախտորոշում։</span>
+          <button id="btnCallForError" class="btn primary" style="padding:6px 14px; font-size:12px; cursor:pointer;">Կանչել Ինժեներին այս խնդրով →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark-section" id="monitoring"><div class="container split"><div><div class="eyebrow light">MONITORING → DETECTION → ACTION</div><h2>Մենք չենք սպասում, որ կայանը կանգնի։</h2><p>Monitoring-ը միայն թվեր ցույց տալ չէ։ Մենք տվյալներից գտնում ենք շեղումը, գնահատում դրա պատճառը և անհրաժեշտության դեպքում կազմակերպում տեխնիկական աշխատանքը։</p><div class="flow"><span>01 Detect</span><b>→</b><span>02 Analyze</span><b>→</b><span>03 Alert</span><b>→</b><span>04 Service</span><b>→</b><span>05 Verify</span></div><ul class="checklist"><li>✓ Արտադրության անսպասելի անկման հայտնաբերում</li><li>✓ PV1/PV2 և string-երի համեմատություն</li><li>✓ AC voltage / frequency / temperature analysis</li><li>✓ Inverter alarm history և availability</li></ul></div><div class="bars-card"><div class="bars-top"><span>Daily energy</span><b>42.8 kWh</b></div><div class="bars"><i style="height:34%"></i><i style="height:48%"></i><i style="height:61%"></i><i style="height:74%"></i><i style="height:88%"></i><i style="height:96%"></i><i style="height:84%"></i><i style="height:68%"></i><i style="height:51%"></i></div><div class="bars-labels"><span>08</span><span>10</span><span>12</span><span>14</span><span>16</span></div></div></div></section>
+
+<section class="section ai-section" id="ai"><div class="container split ai-split"><div><div class="eyebrow">SOLAR AI MONITOR 🤖</div><h2>AI, որը հասկանում է՝ երբ կայանը նորմալ չի աշխատում</h2><p>Solar AI Monitor-ը համադրում է live telemetry-ն, պատմական արտադրությունը, alarm-ները և տեխնիկական սահմանաչափերը՝ աննորմալ վարքագիծը հայտնաբերելու համար։</p><div class="ai-alert"><div class="alert-head"><b>⚠ PV2 production imbalance</b><span>WARNING</span></div><div class="alert-values"><div><small>PV1</small><strong>4.31 kW</strong></div><div><small>PV2</small><strong>2.76 kW</strong></div><div><small>Deviation</small><strong>-36%</strong></div></div><p><b>Possible causes:</b> shading • string issue • connector • module mismatch</p><div class="recommend">AI recommendation: <strong>Technical inspection recommended.</strong></div></div><button class="btn primary" id="btnGetAiCheck" style="cursor: pointer;">Ստանալ AI Plant Check →</button></div><div class="ai-radar"><div class="radar-grid"></div><div class="radar-core">AI<br><b>82</b><small>/100</small></div><span class="r1">Production</span><span class="r2">Voltage</span><span class="r3">Inverter</span><span class="r4">PV Strings</span></div></div></section>
+
+<section class="section check-section" id="check"><div class="container check-card"><div class="check-copy"><div class="eyebrow">FREE PRELIMINARY PLANT CHECK</div><h2>Կայանումդ ի՞նչ է կատարվում։</h2><p>Տվեք հիմնական տվյալները, և մենք կգնահատենք՝ ինչ ուղղությամբ է պետք ստուգել կայանը։</p><div class="contact-mini"><span>📞 +374 44 222720</span><span>💬 WhatsApp</span></div></div><form id="plantForm"><div id="aiCheckBadge" style="display:none; background:#132e44; color:#4ade80; padding:8px 12px; border-radius:6px; margin-bottom:12px; font-size:13px; border:1px solid #1f4566;">🤖 Ակտիվացված է AI խորացված դիագնոստիկայի ռեժիմը</div><div class="form-grid"><label>Կայանի հզորություն (kW)<input name="power_kw" required type="number" min="1" placeholder="օր. 10"></label><label>Inverter<select name="inverter" id="plantInverterSelect" required><option value="">Ընտրել</option><option>Solis</option><option>Growatt</option><option>Huawei</option><option>FoxESS</option><option>Deye</option><option>SolaX</option><option>Solplanet</option><option>Այլ</option></select></label><label>Panel-ների քանակը<input name="panel_count" type="number" min="1" placeholder="օր. 16"></label><label>Կայանի տարեթիվը<input name="year" type="number" min="2000" max="2100" placeholder="օր. 2023"></label><label>Ի՞նչ խնդիր կա<select name="problem" id="plantProblemSelect"><option>Չգիտեմ / ընդհանուր ստուգում</option><option value="AI խորացված դիագնոստիկա">🤖 AI խորացված դիագնոստիկա</option><option>Արտադրությունը ցածր է</option><option>Inverter error</option><option>Բարձր/ցածր լարում</option><option>Monitoring խնդիր</option><option>Այլ</option></select></label><label>Հեռախոս<input name="phone" required type="tel" placeholder="+374 ..."></label></div><button class="btn primary full" type="submit">Ուղարկել Plant Check հարցումը →</button><div class="form-result" id="formResult"></div></form></div></section>
+
+<section class="section cases" id="cases"><div class="container"><div class="section-head"><div><div class="eyebrow">ENGINEERING CASE STUDIES</div><h2>Խնդիրը → վերլուծությունը → լուծումը → արդյունքը</h2></div><p>Ինժեներական սպասարկումը չափում ենք ոչ միայն «աշխատում է/չի աշխատում»-ով, այլ տվյալներով։</p></div><div class="case-grid"><article class="case"><span class="tag">25 kW • GRID VOLTAGE</span><h3>Բարձր AC լարում՝ մինչև 270 V</h3><div class="before"><b>BEFORE</b><strong>260–270 V</strong><span>Peak periods</span></div><p>Վերլուծվում են ցանցի լարումը, inverter-ի grid settings-ը և օբյեկտի էլեկտրական ենթակառուցվածքը։</p><div class="after"><b>EXPECTED ACTION</b><span>Grid analysis → configuration → electrical solution</span></div></article><article class="case"><span class="tag">9.28 kW • STRING ANALYSIS</span><h3>PV1 / PV2 արտադրության անհավասարակշռություն</h3><div class="before"><b>DEVIATION</b><strong>32%</strong><span>String imbalance</span></div><p>Telemetry-ի համեմատությամբ առանձնացվում է շեղումը և կազմակերպվում է string/DC հատվածի տեխնիկական ստուգում։</p><div class="after"><b>VERIFY</b><span>Production comparison → repair → recheck</span></div></article><article class="case"><span class="tag">O&M • PREVENTIVE</span><h3>Կայանը չպետք է սպասի առաջին լուրջ վթարին</h3><div class="before"><b>RISK</b><strong>Hidden</strong><span>Problems accumulate</span></div><p>Պլանային սպասարկումը թույլ է տալիս վաղ հայտնաբերել միացումների, պաշտպանությունների, inverter-ի և monitoring-ի խնդիրները։</p><div class="after"><b>RESULT</b><span>Higher availability + predictable maintenance</span></div></article></div></div></section>
+
+<section class="section process"><div class="container"><div class="eyebrow">HOW WE WORK</div><h2>Մեր ինժեներական գործընթացը</h2><div class="process-grid"><div><b>01</b><h3>Collect</h3><p>Հավաքում ենք կայանի և monitoring-ի տվյալները։</p></div><div><b>02</b><h3>Analyze</h3><p>Համեմատում ենք արտադրությունը և տեխնիկական պարամետրերը։</p></div><div><b>03</b><h3>Fix</h3><p>Կազմակերպում ենք անհրաժեշտ տեխնիկական աշխատանքը։</p></div><div><b>04</b><h3>Verify</h3><p>Ստուգում ենք արդյունքը և պահում service history-ը։</p></div></div></div></section>
+
+<section class="section" id="packages"><div class="container"><div class="section-head"><div><div class="eyebrow">O&M PACKAGES</div><h2>Սպասարկում՝ ըստ ձեր կայանի կարիքի</h2></div><p>Գները հաշվարկվում են կայանի հզորությունից, հեռավորությունից և սպասարկման ծավալից։</p></div><div class="package-grid">
+  <article><span>BASIC</span><h3>Preventive</h3><p>Պլանային տեխնիկական ստուգում և հիմնական սպասարկում։</p><ul><li>Տեսողական ստուգում</li><li>DC/AC հիմնական ստուգումներ</li><li>Inverter inspection</li><li>Service report</li></ul><button class="btn primary pkg-btn" data-pkg="BASIC (Preventive)" style="width:100%; border:none; padding:10px; cursor:pointer;">Ստանալ առաջարկ →</button></article>
+  <article class="featured"><span>STANDARD</span><h3>Monitoring + O&M</h3><p>Հեռավար վերահսկում + պլանային սպասարկում + խնդիրների վերլուծություն։</p><ul><li>Remote monitoring</li><li>Performance analysis</li><li>Alarm review</li><li>Maintenance</li><li>Service report</li></ul><button class="btn primary pkg-btn" data-pkg="STANDARD (Monitoring + O&M)" style="width:100%; border:none; padding:10px; cursor:pointer;">Ստանալ առաջարկ →</button></article>
+  <article><span>PREMIUM</span><h3>Full O&M + AI</h3><p>Ամբողջական սպասարկում՝ AI monitoring, priority response և հաշվետվություններ։</p><ul><li>AI anomaly detection</li><li>Priority service</li><li>Preventive maintenance</li><li>Monthly/periodic reports</li><li>Service history</li></ul><button class="btn primary pkg-btn" data-pkg="PREMIUM (Full O&M + AI)" style="width:100%; border:none; padding:10px; cursor:pointer;">Ստանալ առաջարկ →</button></article>
+</div></div></section>
+
+<section class="section light" id="brands"><div class="container brands"><div><div class="eyebrow">MULTI-BRAND EXPERTISE</div><h2>Աշխատում ենք տարբեր inverter և monitoring համակարգերի հետ</h2><p>Բրենդների ցանկը ընդլայնվում է ըստ իրական service capability-ի և API/monitoring հասանելիության։</p></div><div class="brand-pills"><span>Solis</span><span>Growatt</span><span>Huawei</span><span>FoxESS</span><span>Deye</span><span>SolaX</span><span>Solplanet</span><span>Other</span></div></div></section>
+
+<!-- KNOWLEDGE BASE SECTION -->
+<section class="section knowledge" id="knowledge"><div class="container"><div class="section-head"><div><div class="eyebrow">KNOWLEDGE BASE</div><h2>Գիտելիք՝ արևային կայանի և տան ճիշտ էլեկտրականության համար</h2></div><p>Սեղմեք ցանկացած թեմայի վրա՝ կարդալու մեր ինժեներների մշակած պրակտիկ ուղեցույցները։</p></div><div class="knowledge-grid">
+  <article class="kb-card" data-topic="inverters">
+    <span>INVERTERS</span>
+    <h3>Ինչպես հասկանալ inverter alarm-ները ↗</h3>
+    <p>Alarm history, grid parameters, temperature և troubleshooting logic։</p>
+  </article>
+  <article class="kb-card" data-topic="pvdesign">
+    <span>PV DESIGN</span>
+    <h3>Voc / Vmp / string հաշվարկ ↗</h3>
+    <p>Ինչպես ճիշտ ընտրել string-ի երկարությունը և DC/AC հարաբերակցությունը։</p>
+  </article>
+  <article class="kb-card" data-topic="grid">
+    <span>GRID & HOUSES</span>
+    <h3>Ինչու է տան լարումը տատանվում ↗</h3>
+    <p>Voltage rise, ցանցի դիմադրություն, տրանսֆորմատոր և ստաբիլիզացիա։</p>
+  </article>
+  <article class="kb-card" data-topic="battery">
+    <span>BATTERY</span>
+    <h3>Hybrid համակարգերի հիմունքները ↗</h3>
+    <p>SOC, charging strategy, backup և battery sizing։</p>
+  </article>
+</div></div></section>
+
+<section class="section portal" id="portal"><div class="container portal-card"><div><div class="eyebrow light">CLIENT PORTAL • BACKEND READY</div><h2>Ձեր կայանը՝ մեկ dashboard-ում</h2><p>Մուտք գործեք ձեր հեռախոսահամարով՝ տեսնելու ձեր կայանի ընթացիկ վիճակը, սպասարկման պատմությունը և AI հաշվետվությունները։</p></div><div class="portal-preview"><div><small>MY SOLAR PLANTS</small><b>Home — 10 kW</b><span>● ONLINE</span></div><div class="portal-stats"><span><small>Current</small><b>7.82 kW</b></span><span><small>Today</small><b>42.8 kWh</b></span><span><small>AI</small><b>✓ Normal</b></span></div><div class="portal-links"><span class="portal-link-btn" id="btnPreviewOpenPortal" style="cursor:pointer; color:#38bdf8; text-decoration:underline;">Բացել Client Portal ➔</span></div></div></div></section>
+
+<section class="cta" id="contact"><div class="container cta-inner"><div><div class="eyebrow light">SOLAR SERVICE ARMENIA</div><h2>Ցանկանո՞ւմ եք պաշտպանել ձեր տունը և արևային կայանը։</h2><p>Ուղարկեք ձեր հարցումը կամ կապվեք մեզ հետ։ Մեր ինժեները կկատարի չափագրում և կառաջարկի լավագույն լուծումը։</p></div><div class="cta-buttons"><a class="btn white" href="tel:+37444222720">📞 +374 44 222720</a><a class="btn dark" href="https://wa.me/37444222720" target="_blank" rel="noopener">💬 WhatsApp</a><a class="mail" href="mailto:sservicearmenia@gmail.com">sservicearmenia@gmail.com</a></div></div></section>
+</main>
+<footer><div class="container footer-grid"><div><img src="assets/logo.png" alt="Solar Service Armenia"><p>Solar O&M • Voltage Engineering • Protection • Optimization</p></div><div><b>Ծառայություններ</b><a href="#house-voltage">Լարման Կարգավորում</a><a href="#monitoring">Monitoring</a><a href="#ai">Solar AI</a><a href="#lookup">Error Lookup</a></div><div><b>Կապ</b><a href="tel:+37444222720">+374 44 222720</a><a href="mailto:sservicearmenia@gmail.com">sservicearmenia@gmail.com</a><a href="https://wa.me/37444222720" target="_blank">WhatsApp</a></div><div><b>Հարթակ</b><a href="#portal">Client Portal</a><a href="#knowledge">Knowledge Base</a><a href="#check">Plant Check</a></div></div><div class="container copyright">© 2026 Solar Service Armenia. All rights reserved.</div></footer>
+<a class="floating-wa" href="https://wa.me/37444222720" target="_blank" rel="noopener" aria-label="WhatsApp">💬</a>
+<script src="script.js"></script>
+</body></html>
